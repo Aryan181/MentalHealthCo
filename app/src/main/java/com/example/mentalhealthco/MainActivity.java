@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         .setConstraints(constraints)
                         .build();
 
-         Log.e(TAG, "hello" + myWorkRequest.toString());
+        Log.e(TAG, "hello" + myWorkRequest.toString());
 
         WorkManager.getInstance(getApplicationContext()).enqueue(myWorkRequest);
     }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 for(Long val : mySortedMap.keySet()){
-                   Log.e(TAG, ""+mySortedMap.get(val).getPackageName());
+                    Log.e(TAG, ""+mySortedMap.get(val).getPackageName());
                 }
 
 
