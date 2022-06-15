@@ -1,6 +1,11 @@
 package com.example.mentalhealthco;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import android.app.usage.UsageStats;
 import android.content.Context;
@@ -15,8 +20,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MyActivity";
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         getTopActivtyFromLolipopOnwards();
 
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.UNMETERED)
+                .build();
+
+        WorkRequest myWorkRequest =
+                new OneTimeWorkRequest.Builder(BackgroundWork.class)
+                        .setConstraints(constraints)
+                        .build();
+
+         Log.e(TAG, "hello" + myWorkRequest.toString());
+
+        WorkManager.getInstance(getApplicationContext()).enqueue(myWorkRequest);
     }
 
     public void gatherData(){
